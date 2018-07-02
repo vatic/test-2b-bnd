@@ -1,0 +1,28 @@
+{
+  "name": "test-2b-bnd",
+  "version": "1.0.0",
+  "description": "Backend for simple pizza constructor",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vatic/test-2b-bnd.git"
+  },
+  "keywords": [
+    "pizza",
+    "mysql",
+    "express"
+  ],
+  "author": "s.vatagin@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vatic/test-2b-bnd/issues"
+  },
+  "homepage": "https://github.com/vatic/test-2b-bnd#readme",
+  "dependencies": {
+    "@mysql/xdevapi": "^8.0.11",
+    "eslint": "^5.0.1"
+  }
+}
