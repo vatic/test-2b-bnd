@@ -8,7 +8,7 @@ const corsOptions = {
     ],
     credentials: true,
     optionsSuccessStatus: 200,
-};
+}
 
 // const oauthOptions = {
 //   model: oauthModel,
@@ -18,11 +18,11 @@ const corsOptions = {
 //   accessTokenLifetime: 864000,
 // };
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080
 
 module.exports = {
     corsOptions,
     //   oauthOptions,
     PORT,
-};
+}
 

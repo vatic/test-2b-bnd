@@ -1,2 +1,2 @@
-const config = require('./config');
-require('./src/app')(config);
+const config = require('./config')
+require('./src/app')(config)
