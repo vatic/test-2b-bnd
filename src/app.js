@@ -1,53 +1,40 @@
-'use strict';
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 
-const mysqlx = require('@mysql/xdevapi');
 
-const options = {
-    host: 'localhost',
-    port: 33060,
-    password: 'pVT1XtreE25b',
-    user: 'root'
+const logger = require('winston');
+const bodyParser = require('body-parser');
+// const { restrictedPhoneRouter, checkPhoneRouter } = require('./routes/phones');
+// const { logoutRouter } = require('./routes/auth');
+// const OAuthServer = require('oauth2-server');
+
+
+module.exports = (config) => {
+    // const { corsOptions, oauthOptions, PORT } = config;
+    const { corsOptions, PORT } = config;
+
+    const app = express();
+    app.use(morgan('combined'));
+
+    app.use(cors(corsOptions));
+
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+    // app.oauth = new OAuthServer(oauthOptions);
+
+    app.all('/', (req, res) => res.json({ root: 'This is API server for esypay-test' }));
+    // app.all('/login', app.oauth.grant());
+    // app.use('/logout', app.oauth.authorise(), logoutRouter);
+
+    // app.use(app.oauth.errorHandler());
+
+    // app.use('/phones/check', checkPhoneRouter);
+    // app.use('/phones', app.oauth.authorise(), restrictedPhoneRouter);
+
+    app.listen(PORT, () => {
+        logger.info(`Easypay test app listening on port ${PORT}!`);
+    });
 };
 
-mysqlx
-    .getSession(options)
-    .then(session => {
-        return session
-            .createSchema('mySchema')
-            .then(schema => ({ schema, session }))
-    })
-    .then(ctx => {
-        return ctx.schema
-            .createCollection('myCollection')
-            .then(collection => Object.assign(ctx, { collection }))
-    })
-    .then(ctx => {
-        return Promise
-            .all([
-                ctx.collection
-                    .add({ baz: { foo: 'bar' } }, { foo: { bar: 'baz' } })
-                    .execute(),
-                ctx.collection
-                    .find('baz.foo = "bar"')
-                    .execute(row => console.log(row)),
-                ctx.collection
-                    .remove('foo.bar = "baz"')
-                    .execute(),
-                ctx.schema
-                    .dropCollection('myCollection')
-            ])
-            .then(() => ctx)
-    })
-    .then(ctx => {
-        return ctx.session
-            .dropSchema('mySchema')
-            .then(() => ctx);
-    })
-    .then(ctx => {
-        ctx.session.close();
-        process.exit(0);
-    })
-    .catch(err => {
-        console.log(err.stack);
-        process.exit(1);
-    });
+// module.exports = app;
