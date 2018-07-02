@@ -4,7 +4,15 @@
   "description": "Backend for simple pizza constructor",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "mocha --exit --timeout 10000 test/**/*.js",
+    "test:coverage": "nyc npm test",
+    "lint": "eslint src test",
+    "seed:make": "$(npm bin)/knex seed:make",
+    "seed:run": "$(npm bin)/knex seed:run",
+    "migrate:make": "$(npm bin)/knex migrate:make",
+    "migrate:latest": "$(npm bin)/knex migrate:latest",
+    "migrate:rollback": "$(npm bin)/knex migrate:rollback"
   },
   "repository": {
     "type": "git",
@@ -23,6 +31,9 @@
   "homepage": "https://github.com/vatic/test-2b-bnd#readme",
   "dependencies": {
     "@mysql/xdevapi": "^8.0.11",
+    "knex": "^0.15.0"
+  },
+  "devDependencies": {
     "eslint": "^5.0.1"
   }
 }
