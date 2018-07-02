@@ -2,6 +2,7 @@ module.exports = {
 
   development: {
     client: 'mysql',
+    version: '5.6',
     connection: {
       user: 'vatagin',
       password: 'vat123',
@@ -18,6 +19,7 @@ module.exports = {
 
   test: {
     client: 'mysql',
+    version: '5.6',
     connection: {
       user: 'vatagin',
       password: 'vat123',
@@ -34,6 +36,7 @@ module.exports = {
 
   production: {
     client: 'mysql',
+    version: '5.6',
     connection: {
       host: 'mysql.example.com',
       user: process.env.PIZZA_USER,
