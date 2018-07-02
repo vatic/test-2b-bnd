@@ -3,7 +3,7 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
-      user: 'root',
+      user: 'vatagin',
       password: 'vat123',
       database: 'pizza_dev',
     },
