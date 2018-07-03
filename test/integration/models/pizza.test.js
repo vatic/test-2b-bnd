@@ -22,9 +22,9 @@ describe('Integration', () => {
         describe('pizza model', () => {
             describe('#add', () => {
                 it('should add pizza with name', async () => {
-                    const ids = await ingredientsIds()
-                    console.log(ids)
-                    const res = await add('testPizza#1')
+                    const allIds = await ingredientsIds()
+                    const ids = [allIds[1], allIds[3], allIds[5], allIds[15]]
+                    const res = await add('testPizza#1', ids)
                     assert.isArray(res)
                     assert.lengthOf(res, 1)
                     console.log(res)
