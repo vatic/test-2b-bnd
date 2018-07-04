@@ -13,8 +13,8 @@ const getAllHandler = async (req, res) => {
 
 const addHandler = async (req, res) => {
     const { name, ids } = req.body
-    const pizzas = await addPizza(name, ids)
-    res.json({ pizzas })
+    const result = await addPizza(name, ids)
+    res.json(result)
 }
 
 pizzaRouter.get('/', getAllHandler)
