@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const logger = require('winston')
 const bodyParser = require('body-parser')
 const { serverInfoRouter } = require('./routes/serverInfo')
+const { pizzaRouter } = require('./routes/pizza')
 // const { restrictedPhoneRouter, checkPhoneRouter } = require('./routes/phones');
 // const { logoutRouter } = require('./routes/auth');
 // const OAuthServer = require('oauth2-server');
@@ -31,9 +32,7 @@ module.exports = (config) => {
     // app.use(app.oauth.errorHandler());
 
     app.use('/ping', serverInfoRouter)
-
-    // app.use('/phones/check', checkPhoneRouter);
-    // app.use('/phones', app.oauth.authorise(), restrictedPhoneRouter);
+    app.use('/api/pizza', pizzaRouter)
 
     app.listen(PORT, () => {
         logger.info(`Easypay test app listening on port ${PORT}!`)
