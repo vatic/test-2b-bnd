@@ -8,7 +8,7 @@ const pizzaRouter = express.Router()
 
 const getAllHandler = async (req, res) => {
     const pizzas = await getAll()
-    res.json({ pizzas })
+    res.json(pizzas)
 }
 
 const addHandler = async (req, res) => {

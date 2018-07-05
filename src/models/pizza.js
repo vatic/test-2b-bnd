@@ -17,7 +17,6 @@ const list = async () => {
     INNER JOIN ingredients i ON i.id = pi.ingredient_id
     GROUP BY p.id, p.name`
     const dbRes = knex.raw(SQL)
-    console.log(dbRes)
     return dbRes
 }
 
