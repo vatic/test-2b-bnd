@@ -2,15 +2,13 @@ const knex = require('../db/knex')
 
 const tableName = 'ingredients'
 
-const genList = (attr1, attr2) => {
-    if (attr2) {
-        return knex(tableName).select(attr1, attr2)
-    }
-    return knex(tableName).select(attr1)
+const list = () => {
+    const SQL = `
+    SELECT i.id, i.name, t.id type_id, t.name type_name
+    FROM ingredients i INNER JOIN types t ON t.id=i.type_id`
+    return knex(tableName).raw(SQL)
 }
-
-const list = () => genList('id', 'name')
-const ids = () => genList('id')
+const ids = () => knex(tableName).select('id')
 // const add = name => knex(tableName).insert({ name })
 
 module.exports = {
