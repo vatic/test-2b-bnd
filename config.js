@@ -1,4 +1,4 @@
-// const oauthModel = require('./src/models/oauth');
+const oauthModel = require('./src/models/oauth')
 
 const corsOptions = {
     origin: [
@@ -10,19 +10,19 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 }
 
-// const oauthOptions = {
-//   model: oauthModel,
-//   grants: ['password'],
-//   debug: true,
-//   passthroughErrors: true,
-//   accessTokenLifetime: 864000,
-// };
+const oauthOptions = {
+    model: oauthModel,
+    grants: ['password'],
+    debug: true,
+    passthroughErrors: true,
+    accessTokenLifetime: 864000,
+}
 
 const PORT = process.env.PORT || 8080
 
 module.exports = {
     corsOptions,
-    //   oauthOptions,
+    oauthOptions,
     PORT,
 }
 
