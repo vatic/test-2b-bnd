@@ -5,12 +5,12 @@ const ingredientsIds = async () => {
     return rawIds.map(e => e.id)
 }
 
-const ingredientsList = async () => {
+const getAll = async () => {
     const rawList = await list()
-    return rawList
+    return rawList[0]
 }
 
 module.exports = {
     ingredientsIds,
-    ingredientsList,
+    getAll,
 }
