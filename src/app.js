@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const { serverInfoRouter } = require('./routes/serverInfo')
 const { pizzaRouter } = require('./routes/pizza')
 const { ingredientsRouter } = require('./routes/ingredients')
+const { typesRouter } = require('./routes/types')
 // const { restrictedPhoneRouter, checkPhoneRouter } = require('./routes/phones')
 
 const { logoutRouter } = require('./routes/auth')
@@ -35,6 +36,7 @@ module.exports = (config) => {
     app.use('/ping', serverInfoRouter)
     app.use('/pizzas', pizzaRouter)
     app.use('/ingredients', ingredientsRouter)
+    app.use('/types', typesRouter)
 
     app.listen(PORT, () => {
         logger.info(`Easypay test app listening on port ${PORT}!`)
