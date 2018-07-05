@@ -32,7 +32,7 @@ module.exports = (config) => {
     // app.use(app.oauth.errorHandler());
 
     app.use('/ping', serverInfoRouter)
-    app.use('/api/pizza', pizzaRouter)
+    app.use('/pizzas', pizzaRouter)
 
     app.listen(PORT, () => {
         logger.info(`Easypay test app listening on port ${PORT}!`)

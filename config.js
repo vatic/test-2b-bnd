@@ -4,7 +4,7 @@ const corsOptions = {
     origin: [
         'http://localhost:3000',
         'http://localhost:5000',
-        'https://easypay-test-frontend.herokuapp.com',
+        'https://2b-test-frontend.herokuapp.com',
     ],
     credentials: true,
     optionsSuccessStatus: 200,
