@@ -21,9 +21,9 @@ const addPizza = async (name, inggredientsIds) => {
     }
 }
 
-const getAll = async () => {
+const getAll = async (limit, offset) => {
     try {
-        const pizzasRaw = (await list())
+        const pizzasRaw = (await list(limit, offset))
         return pizzasRaw[0]
     } catch (error) {
         return { error }

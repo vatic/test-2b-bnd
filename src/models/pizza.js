@@ -9,13 +9,14 @@ const addWithIngredients = (pizzaId, ingredientsIds) => {
     return knex.raw(SQL)
 }
 
-const list = async () => {
+const list = async (limit = 10, offset = 0) => {
     const SQL = `
     SELECT p.id, p.name, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
     FROM pizzas_ingredients pi
     INNER JOIN pizzas p ON p.id = pi.pizza_id
     INNER JOIN ingredients i ON i.id = pi.ingredient_id
-    GROUP BY p.id, p.name`
+    GROUP BY p.id, p.name
+    LIMIT ${limit} OFFSET ${offset}`
     return knex.raw(SQL)
 }
 

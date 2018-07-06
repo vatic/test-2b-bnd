@@ -9,7 +9,8 @@ const {
 const pizzaRouter = express.Router()
 
 const getAllHandler = async (req, res) => {
-    const pizzas = await getAll()
+    const { limit, offset } = req.query
+    const pizzas = await getAll(limit, offset)
     res.json(pizzas)
 }
 
