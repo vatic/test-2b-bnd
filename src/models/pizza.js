@@ -19,8 +19,24 @@ const list = async () => {
     return knex.raw(SQL)
 }
 
+const enable = async (id) => {
+    const SQL = `
+    UPDATE pizzas SET activity=1 WHERE id=${id}`
+    return knex.raw(SQL)
+}
+
+
+const disable = async (id) => {
+    const SQL = `
+    UPDATE pizzas SET activity=0 WHERE id=${id}`
+    return knex.raw(SQL)
+}
+
+
 module.exports = {
     add,
     addWithIngredients,
     list,
+    enable,
+    disable,
 }

@@ -2,6 +2,8 @@ const {
     add,
     addWithIngredients,
     list,
+    enable,
+    disable,
 } = require('../models/pizza')
 
 
@@ -28,7 +30,27 @@ const getAll = async () => {
     }
 }
 
+const enablePizza = async (id) => {
+    try {
+        const dbRes = (await enable(id))
+        return dbRes
+    } catch (error) {
+        return { error }
+    }
+}
+
+const disablePizza = async (id) => {
+    try {
+        const dbRes = (await disable(id))
+        return dbRes
+    } catch (error) {
+        return { error }
+    }
+}
+
 module.exports = {
     getAll,
     addPizza,
+    enablePizza,
+    disablePizza,
 }
