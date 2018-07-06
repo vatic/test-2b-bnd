@@ -11,7 +11,7 @@ const addWithIngredients = (pizzaId, ingredientsIds) => {
 
 const list = async () => {
     const SQL = `
-    SELECT p.id, p.name, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
+    SELECT p.id, p.name, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
     FROM pizzas_ingredients pi
     INNER JOIN pizzas p ON p.id = pi.pizza_id
     INNER JOIN ingredients i ON i.id = pi.ingredient_id
