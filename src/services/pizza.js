@@ -4,6 +4,7 @@ const {
     list,
     enable,
     disable,
+    count,
 } = require('../models/pizza')
 
 
@@ -25,6 +26,15 @@ const getAll = async (limit, offset) => {
     try {
         const pizzasRaw = (await list(limit, offset))
         return pizzasRaw[0]
+    } catch (error) {
+        return { error }
+    }
+}
+
+const getCount = async () => {
+    try {
+        const countRes = (await count())[0]
+        return { total: Object.values(countRes)[0] }
     } catch (error) {
         return { error }
     }
@@ -53,4 +63,5 @@ module.exports = {
     addPizza,
     enablePizza,
     disablePizza,
+    getCount,
 }

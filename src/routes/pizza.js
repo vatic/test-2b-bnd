@@ -4,6 +4,7 @@ const {
     addPizza,
     enablePizza,
     disablePizza,
+    getCount,
 } = require('../services/pizza')
 
 const pizzaRouter = express.Router()
@@ -32,7 +33,13 @@ const disableHandler = async (req, res) => {
     res.json(result)
 }
 
+const getCountHandler = async (req, res) => {
+    const result = await getCount()
+    res.json(result)
+}
+
 pizzaRouter.get('/', getAllHandler)
+pizzaRouter.get('/count', getCountHandler)
 pizzaRouter.post('/', addHandler)
 pizzaRouter.post('/:id/enable', enableHandler)
 pizzaRouter.delete('/:id', disableHandler)

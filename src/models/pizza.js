@@ -9,7 +9,7 @@ const addWithIngredients = (pizzaId, ingredientsIds) => {
     return knex.raw(SQL)
 }
 
-const list = async (limit = 10, offset = 0) => {
+const list = (limit = 10, offset = 0) => {
     const SQL = `
     SELECT p.id, p.name, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
     FROM pizzas_ingredients pi
@@ -19,6 +19,8 @@ const list = async (limit = 10, offset = 0) => {
     LIMIT ${limit} OFFSET ${offset}`
     return knex.raw(SQL)
 }
+
+const count = () => knex(tableName).count('id')
 
 const enable = async (id) => {
     const SQL = `
@@ -40,4 +42,5 @@ module.exports = {
     list,
     enable,
     disable,
+    count,
 }
