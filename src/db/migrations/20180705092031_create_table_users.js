@@ -6,6 +6,7 @@ exports.up = (knex, Promise) => (
             table.increments('id').primary()
             table.text('username').notNullable()
             table.text('password').notNullable()
+            table.text('role').notNullable().default('user')
         }),
     ])
 )

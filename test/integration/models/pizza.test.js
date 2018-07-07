@@ -35,13 +35,14 @@ describe('Integration', () => {
                 it('should add pizza with ingredients', async () => {
                     const allIds = await ingredientsIds()
                     const ids = [allIds[1], allIds[4], allIds[9], allIds[15]]
-                    const pizzaId = (await add(`testPizza_${faker.random.word()}`))[0]
+                    const userId = 1
+                    const pizzaId = (await add(`testPizza_${faker.random.word()}`, userId))[0]
                     const res = await addWithIngredients(pizzaId, ids)
                     assert.isArray(res)
                 })
             })
             describe('#list', () => {
-                it.only('should get list of all pizzas', async () => {
+                it('should get list of all pizzas', async () => {
                     const res = await list()
                     assert.isArray(res)
                     // console.log(res)

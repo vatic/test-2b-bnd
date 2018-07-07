@@ -1,8 +1,8 @@
 const query = `
-INSERT INTO users (username, password)
+INSERT INTO users (username, password, role)
 VALUES
-('admin', SHA('admin')),
-('user1', SHA('user1'))
+('admin', SHA('admin'), 'admin'),
+('user1', SHA('user1'), 'user')
 `
 exports.seed = knex =>
     knex('users').del()
