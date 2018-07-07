@@ -1,3 +1,4 @@
+const { getAccessTokenPromise } = require('../models/oauth')
 const {
     add,
     addWithIngredients,
@@ -8,9 +9,11 @@ const {
 } = require('../models/pizza')
 
 
-const addPizza = async (name, inggredientsIds) => {
+const addPizza = async (token, name, inggredientsIds) => {
     try {
-        const pizzaId = (await add(name))[0]
+        const tokenInfo = await getAccessTokenPromise(token)
+        console.log(tokenInfo)
+        const pizzaId = (await add(name, 1))[0]
         try {
             const res = await addWithIngredients(pizzaId, inggredientsIds)
             return { res }

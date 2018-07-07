@@ -1,7 +1,7 @@
 const knex = require('../db/knex')
 
 const tableName = 'pizzas'
-const add = name => knex(tableName).insert({ name })
+const add = (name, user_id) => knex(tableName).insert({ name, user_id })
 
 const addWithIngredients = (pizzaId, ingredientsIds) => {
     const ids = ingredientsIds.map(id => `(${pizzaId}, ${id})`).join(',')
@@ -11,10 +11,11 @@ const addWithIngredients = (pizzaId, ingredientsIds) => {
 
 const list = (limit = 10, offset = 0) => {
     const SQL = `
-    SELECT p.id, p.name, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
+    SELECT p.id, p.name, u.id, u.username, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
     FROM pizzas_ingredients pi
     INNER JOIN pizzas p ON p.id = pi.pizza_id
     INNER JOIN ingredients i ON i.id = pi.ingredient_id
+    INNER JOIN users u ON u.id = p.user_id
     GROUP BY p.id, p.name
     LIMIT ${limit} OFFSET ${offset}`
     return knex.raw(SQL)

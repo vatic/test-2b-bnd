@@ -25,7 +25,8 @@ describe('Integration', () => {
         describe('pizza model', () => {
             describe('#add', () => {
                 it('should add pizza with name', async () => {
-                    const res = await add(`testPizza_${faker.random.word()}`)
+                    const userId = 1
+                    const res = await add(`testPizza_${faker.random.word()}`, userId)
                     assert.isArray(res)
                     assert.lengthOf(res, 1)
                 })
@@ -40,7 +41,7 @@ describe('Integration', () => {
                 })
             })
             describe('#list', () => {
-                it('should get list of all pizzas', async () => {
+                it.only('should get list of all pizzas', async () => {
                     const res = await list()
                     assert.isArray(res)
                     // console.log(res)

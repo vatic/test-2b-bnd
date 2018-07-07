@@ -17,7 +17,10 @@ const getAllHandler = async (req, res) => {
 
 const addHandler = async (req, res) => {
     const { name, ids } = req.body
-    const result = await addPizza(name, ids)
+    const token =  req.headers.authorization.split(' ')[1]
+    console.log(token)
+    const result = await addPizza(token, name, ids)
+    console.log(result)
     res.json(result)
 }
 
