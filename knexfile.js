@@ -36,12 +36,12 @@ module.exports = {
 
     production: {
         client: 'mysql',
-        version: '5.6',
+        version: '8.0',
         connection: {
-            host: 'mysql.example.com',
+            host: 'db4free.net',
             user: process.env.PIZZA_USER,
             password: process.env.PIZZA_PWD,
-            database: 'db-name',
+            database: 'pizza_prod',
         },
         migrations: {
             tableName: 'knex_migrations',
