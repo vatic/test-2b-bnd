@@ -32,7 +32,8 @@ const getAccessToken = async (bearerToken, callback) => {
         const result = await knex('oauth_tokens')
             .where({ access_token: bearerToken })
             .select('access_token', 'client_id', 'expires', 'user_id')
-        if (result.length === 0) return callback(true, false)
+        // if (result.length === 0) return callback(true, false)
+        if (result.length === 0) return callback(false, '')
         const token = result[0]
         return callback(false, {
             accessToken: token.access_token,
@@ -44,15 +45,6 @@ const getAccessToken = async (bearerToken, callback) => {
         return callback(error)
     }
 }
-
-const getAccessTokenPromise = bearerToken => (
-    getAccessToken(bearerToken, (err, token) => {
-        if (err) {
-            return Promise.reject(err)
-        }
-        return Promise.resolve(token)
-    })
-)
 
 const getClient = (clientId, clientSecret, callback) =>
     callback(false, oauthClients[0])
@@ -100,7 +92,6 @@ module.exports = {
     getUser,
     saveAccessToken,
     getAccessToken,
-    getAccessTokenPromise,
     deleteAllTokens,
     deleteToken,
 }

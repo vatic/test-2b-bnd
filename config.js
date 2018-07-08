@@ -14,7 +14,8 @@ const oauthOptions = {
     model: oauthModel,
     grants: ['password'],
     debug: true,
-    passthroughErrors: true,
+    passthroughErrors: false,
+    continueAfterResponse: true,
     accessTokenLifetime: 864000,
 }
 
