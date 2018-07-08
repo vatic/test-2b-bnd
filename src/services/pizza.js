@@ -3,17 +3,30 @@ const {
     add,
     addWithIngredients,
     list,
+    listByUser,
     enable,
     disable,
     count,
 } = require('../models/pizza')
 
-
+const getTokenInfo = async (token) => {
+    const tokenInfo = await getToken(token)
+    if (!tokenInfo || !tokenInfo.userId) {
+        return {
+            code: 403,
+            error: 'invalid_token',
+            error_description: 'You must provide valid user token.',
+        }
+    }
+    return tokenInfo
+}
 const addPizza = async (token, name, inggredientsIds) => {
+    const tokenInfo = getTokenInfo(token)
+    if (tokenInfo.error) {
+        return tokenInfo
+    }
     try {
-        const tokenInfo = await getToken(token)
-        console.log(tokenInfo)
-        const pizzaId = (await add(name, 1))[0]
+        const pizzaId = (await add(name, tokenInfo.userId))[0]
         try {
             const res = await addWithIngredients(pizzaId, inggredientsIds)
             return { res }
@@ -28,6 +41,19 @@ const addPizza = async (token, name, inggredientsIds) => {
 const getAll = async (limit, offset) => {
     try {
         const pizzasRaw = (await list(limit, offset))
+        return pizzasRaw[0]
+    } catch (error) {
+        return { error }
+    }
+}
+
+const getAllByUser = async (token, limit, offset) => {
+    const tokenInfo = await getTokenInfo(token)
+    if (tokenInfo.error) {
+        return tokenInfo
+    }
+    try {
+        const pizzasRaw = (await listByUser(tokenInfo.userId, limit, offset))
         return pizzasRaw[0]
     } catch (error) {
         return { error }
@@ -63,6 +89,7 @@ const disablePizza = async (id) => {
 
 module.exports = {
     getAll,
+    getAllByUser,
     addPizza,
     enablePizza,
     disablePizza,

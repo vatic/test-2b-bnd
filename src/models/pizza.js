@@ -9,16 +9,23 @@ const addWithIngredients = (pizzaId, ingredientsIds) => {
     return knex.raw(SQL)
 }
 
-const list = (limit = 10, offset = 0) => {
-    const SQL = `
+const listSql = userId => `
     SELECT p.id, p.name, u.id, u.username, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
     FROM pizzas_ingredients pi
     INNER JOIN pizzas p ON p.id = pi.pizza_id
     INNER JOIN ingredients i ON i.id = pi.ingredient_id
     INNER JOIN users u ON u.id = p.user_id
+    ${userId ? 'WHERE p.user_id = ?' : ''}
     GROUP BY p.id, p.name
-    LIMIT ${limit} OFFSET ${offset}`
-    return knex.raw(SQL)
+    LIMIT ? OFFSET ?`
+
+const list = (limit = 10, offset = 0) => knex.raw(listSql(null), [+limit, +offset])
+
+const listByUser = (userId = null, limit = 10, offset = 0) => {
+    if (!userId) {
+        return null
+    }
+    return knex.raw(listSql(userId), [+userId, +limit, +offset])
 }
 
 const count = () => knex(tableName).count('id')
@@ -41,6 +48,7 @@ module.exports = {
     add,
     addWithIngredients,
     list,
+    listByUser,
     enable,
     disable,
     count,

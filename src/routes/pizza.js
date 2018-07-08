@@ -1,17 +1,32 @@
 const express = require('express')
 const {
     getAll,
+    getAllByUser,
     addPizza,
     enablePizza,
     disablePizza,
     getCount,
 } = require('../services/pizza')
 
+const myAuthErrorHandler = (req, res, next) => {
+    console.dir(res)
+    next()
+}
+
+
 const pizzaRouter = express.Router()
+// pizzaRouter.use(myAuthErrorHandler)
 
 const getAllHandler = async (req, res) => {
     const { limit, offset } = req.query
     const pizzas = await getAll(limit, offset)
+    res.json(pizzas)
+}
+
+const getAllByUserHandler = async (req, res) => {
+    const { limit, offset } = req.query
+    const token =  req.headers.authorization.split(' ')[1]
+    const pizzas = await getAllByUser(token, limit, offset)
     res.json(pizzas)
 }
 
@@ -42,6 +57,7 @@ const getCountHandler = async (req, res) => {
 }
 
 pizzaRouter.get('/', getAllHandler)
+pizzaRouter.get('/user', getAllByUserHandler)
 pizzaRouter.get('/count', getCountHandler)
 pizzaRouter.post('/', addHandler)
 pizzaRouter.post('/:id/enable', enableHandler)

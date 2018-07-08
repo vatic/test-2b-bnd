@@ -20,11 +20,6 @@ module.exports = (config) => {
 
     const app = express()
 
-    const myAuthErrorHandler = (req, res, next) => {
-        console.dir(res)
-        next()
-    }
-
     app.use(morgan('combined'))
 
     app.use(cors(corsOptions))
