@@ -37,11 +37,11 @@ module.exports = (config) => {
     app.all('/login', app.oauth.grant())
     app.use('/logout', app.oauth.authorise(), logoutRouter)
 
-
     app.use('/ping', serverInfoRouter)
-    app.use('/pizzas', pizzaRouter)
-    app.use('/ingredients', ingredientsRouter)
-    app.use('/types', app.oauth.authorise(), typesRouter, app.oauth.errorHandler())
+
+    app.use('/pizzas', app.oauth.authorise(), pizzaRouter)
+    app.use('/ingredients', app.oauth.authorise(), ingredientsRouter)
+    app.use('/types', app.oauth.authorise(), typesRouter)
 
     app.listen(PORT, () => {
         logger.info(`Easypay test app listening on port ${PORT}!`)
