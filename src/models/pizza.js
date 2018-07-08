@@ -10,7 +10,7 @@ const addWithIngredients = (pizzaId, ingredientsIds) => {
 }
 
 const listSql = userId => `
-    SELECT p.id, p.name, u.id, u.username, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
+    SELECT p.id, p.name, u.id user_id, u.username, p.activity, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients
     FROM pizzas_ingredients pi
     INNER JOIN pizzas p ON p.id = pi.pizza_id
     INNER JOIN ingredients i ON i.id = pi.ingredient_id
