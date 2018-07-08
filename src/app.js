@@ -11,7 +11,7 @@ const { ingredientsRouter } = require('./routes/ingredients')
 const { typesRouter } = require('./routes/types')
 // const { restrictedPhoneRouter, checkPhoneRouter } = require('./routes/phones')
 
-const { logoutRouter } = require('./routes/auth')
+const { logoutRouter, userRouter } = require('./routes/auth')
 const OAuthServer = require('oauth2-server')
 
 
@@ -31,6 +31,7 @@ module.exports = (config) => {
     app.all('/', (req, res) => res.json({ root: 'This is API server for pizza backend' }))
     app.all('/login', app.oauth.grant())
     app.use('/logout', app.oauth.authorise(), logoutRouter)
+    app.use('/me', app.oauth.authorise(), userRouter)
 
     app.use('/ping', serverInfoRouter)
 

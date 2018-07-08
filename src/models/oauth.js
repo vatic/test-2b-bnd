@@ -86,10 +86,13 @@ const getUser = async (username, password, callback) => {
     }
 }
 
+const getUserById = userId => knex('users').where({ id: userId }).select('id', 'username', 'role')
+
 module.exports = {
     getClient,
     grantTypeAllowed,
     getUser,
+    getUserById,
     saveAccessToken,
     getAccessToken,
     deleteAllTokens,

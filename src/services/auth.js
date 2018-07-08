@@ -6,6 +6,7 @@ const {
     saveAccessToken,
     deleteAllTokens,
     deleteToken,
+    getUserById,
 } = require('../models/oauth')
 
 const saveToken = util.promisify(saveAccessToken)
@@ -17,6 +18,11 @@ const checkDeleteResults = n => parseInt(n, 10) > 0
 
 const getToken = token => util.promisify(getAccessToken)(token)
 
+const getUserByToken = async (token) => {
+    const tokenInfo = await getToken(token)
+    return getUserById(tokenInfo.userId)
+}
+
 const removeToken = R.pipeP(deleteToken, R.ifElse(checkDeleteResults, deleted, notDeleted))
 
 module.exports = {
@@ -24,4 +30,5 @@ module.exports = {
     getToken,
     deleteAllTokens,
     removeToken,
+    getUserByToken,
 }
