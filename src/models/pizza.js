@@ -30,6 +30,8 @@ const listByUser = (userId = null, limit = 10, offset = 0) => {
 
 const count = () => knex(tableName).count('id')
 
+const countByUser = userId => knex(tableName).count('id').where({ user_id: userId })
+
 const enable = async (id) => {
     const SQL = `
     UPDATE pizzas SET activity=1 WHERE id=${id}`
@@ -52,4 +54,5 @@ module.exports = {
     enable,
     disable,
     count,
+    countByUser,
 }

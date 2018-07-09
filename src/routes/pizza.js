@@ -6,6 +6,7 @@ const {
     enablePizza,
     disablePizza,
     getCount,
+    getCountByUser,
 } = require('../services/pizza')
 
 const myAuthErrorHandler = (req, res, next) => {
@@ -33,9 +34,7 @@ const getAllByUserHandler = async (req, res) => {
 const addHandler = async (req, res) => {
     const { name, ids } = req.body
     const token =  req.headers.authorization.split(' ')[1]
-    console.log(token)
     const result = await addPizza(token, name, ids)
-    console.log(result)
     res.json(result)
 }
 
@@ -56,8 +55,16 @@ const getCountHandler = async (req, res) => {
     res.json(result)
 }
 
+const getCountByUserHandler = async (req, res) => {
+    console.dir(req.headers.authorization)
+    const token =  req.headers.authorization.split(' ')[1]
+    const result = await getCountByUser(token)
+    res.json(result)
+}
+
 pizzaRouter.get('/', getAllHandler)
 pizzaRouter.get('/user', getAllByUserHandler)
+pizzaRouter.get('/count/user', getCountByUserHandler)
 pizzaRouter.get('/count', getCountHandler)
 pizzaRouter.post('/', addHandler)
 pizzaRouter.post('/:id/enable', enableHandler)

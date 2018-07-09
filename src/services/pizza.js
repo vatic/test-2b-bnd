@@ -7,6 +7,7 @@ const {
     enable,
     disable,
     count,
+    countByUser,
 } = require('../models/pizza')
 
 const getTokenInfo = async (token) => {
@@ -69,6 +70,20 @@ const getCount = async () => {
     }
 }
 
+const getCountByUser = async (token) => {
+    const tokenInfo = await getTokenInfo(token)
+    if (tokenInfo.error) {
+        return tokenInfo
+    }
+    try {
+        const countRes = (await countByUser(tokenInfo.userId))[0]
+        console.dir(countRes)
+        return { total: Object.values(countRes)[0] }
+    } catch (error) {
+        return { error }
+    }
+}
+
 const enablePizza = async (id) => {
     try {
         const dbRes = (await enable(id))
@@ -94,4 +109,5 @@ module.exports = {
     enablePizza,
     disablePizza,
     getCount,
+    getCountByUser,
 }
