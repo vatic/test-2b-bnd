@@ -20,7 +20,8 @@ const getToken = token => util.promisify(getAccessToken)(token)
 
 const getUserByToken = async (token) => {
     const tokenInfo = await getToken(token)
-    return getUserById(tokenInfo.userId)
+    const user = (await getUserById(tokenInfo.userId))[0]
+    return user
 }
 
 const removeToken = R.pipeP(deleteToken, R.ifElse(checkDeleteResults, deleted, notDeleted))

@@ -86,7 +86,7 @@ const getUser = async (username, password, callback) => {
     }
 }
 
-const getUserById = userId => knex('users').where({ id: userId }).select('id', 'username', 'role')
+const getUserById = userId => knex('users').where({ id: userId }).select('id', 'username', 'role').limit(1)
 
 module.exports = {
     getClient,
