@@ -22,7 +22,7 @@ const getTokenInfo = async (token) => {
     return tokenInfo
 }
 const addPizza = async (token, name, inggredientsIds) => {
-    const tokenInfo = getTokenInfo(token)
+    const tokenInfo = await getTokenInfo(token)
     if (tokenInfo.error) {
         return tokenInfo
     }
