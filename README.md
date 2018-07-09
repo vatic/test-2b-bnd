@@ -3,6 +3,9 @@
 #### Работающий бекенд на
 [https://test-2b-backend.herokuapp.com/](https://test-2b-backend.herokuapp.com)
 
+#### Работающий фронтенд на
+[https://test-2b-frontend.herokuapp.com/](https://test-2b-frontend.herokuapp.com)
+
 Для красивого json в консоли установить можно jq.
 На ubuntu: ```apt-get install jq```
 На archlinux: ```pacman -S jq```
