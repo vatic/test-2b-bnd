@@ -12,7 +12,8 @@ exports.up = (knex, Promise) => (
                 .onDelete('CASCADE')
                 .onUpdate('CASCADE')
                 .index()
-            table.timestamps()
+            table.timestamp('created_at').defaultTo(knex.fn.now())
+            table.timestamp('updated_at').defaultTo(knex.fn.now())
         }),
     ])
 )

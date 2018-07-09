@@ -17,6 +17,7 @@ const listSql = userId => `
     INNER JOIN users u ON u.id = p.user_id
     ${userId ? 'WHERE p.user_id = ?' : ''}
     GROUP BY p.id, p.name
+    ORDER BY p.updated_at DESC
     LIMIT ? OFFSET ?`
 
 const list = (limit = 10, offset = 0) => knex.raw(listSql(null), [+limit, +offset])
