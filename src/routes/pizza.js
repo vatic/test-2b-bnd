@@ -1,4 +1,5 @@
 const express = require('express')
+const { getUserByToken } = require('../services/auth')
 const {
     getAll,
     getAllByUser,
@@ -9,17 +10,21 @@ const {
     getCountByUser,
 } = require('../services/pizza')
 
-const myAuthErrorHandler = (req, res, next) => {
-    console.dir(res)
-    next()
-}
-
 
 const pizzaRouter = express.Router()
 // pizzaRouter.use(myAuthErrorHandler)
 
 const getAllHandler = async (req, res) => {
     const { limit, offset } = req.query
+    const token =  req.headers.authorization.split(' ')[1]
+    const user = await getUserByToken(token)
+    if (user.role !== 'admin') {
+        return res.json({
+            code: 403,
+            error: 'access_denied',
+            error_description: 'You must have valid role.',
+        })
+    }
     const pizzas = await getAll(limit, offset)
     res.json(pizzas)
 }
